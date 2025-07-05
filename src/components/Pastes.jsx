@@ -113,6 +113,6 @@ const Pastes = () => {
 
   )
 }
+}
 
 export default Pastes
-// Hello user this is the content of first paste
