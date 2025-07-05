@@ -4,6 +4,7 @@ import Home from './components/Home.jsx'
 import Navbar from './components/Navbar.jsx'
 import Pastes from './components/Pastes.jsx'
 import ViewPastes from './components/ViewPastes.jsx'
+import Footer from './components/Footer.jsx'
 
 
 const router =createBrowserRouter(
@@ -14,6 +15,7 @@ const router =createBrowserRouter(
       <div>
         <Navbar />
         <Home />
+        <Footer/>
       </div>
     },
     {
@@ -22,6 +24,7 @@ const router =createBrowserRouter(
       <div>
         <Navbar />
         <Pastes />
+        <Footer />
       </div>
     },
     {
@@ -30,11 +33,11 @@ const router =createBrowserRouter(
       <div>
         <Navbar />
         <ViewPastes />
+        <Footer />
       </div>
     },
   ]
 )
-
 
 
 function App(){

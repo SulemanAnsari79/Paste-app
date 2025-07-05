@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeFromPastes } from '../redux/pasteSlice';
 import toast from 'react-hot-toast';
-import { FacebookShareButton, TwitterShareButton, WhatsappShareButton, FacebookIcon, TwitterIcon, WhatsappIcon } from 'react-share';
-
 
 const Pastes = () => {
 
@@ -18,9 +16,23 @@ const Pastes = () => {
   function handleDelete(pasteId) {
     dispatch(removeFromPastes(pasteId));
   }
-  const ShareModal = ({ url, title }) => {
-  const [open, setOpen] = useState(false);
 
+  async function handleShare(){
+     if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Check this out!',
+          text: 'Awesome content to share.',
+          url: window.location.href,
+        });
+        console.log('Shared successfully!');
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      alert('Sharing not supported on this browser.');
+    }
+  }
 
   return (
     <div>
@@ -38,14 +50,16 @@ const Pastes = () => {
             (paste) => {
               return (
                 <div className='border rounded-2xl' key={paste?.id}>
-                  <div>
-                    Title: {paste.title}
+                  <div className='text-2xl'>
+                    <span className='font-bold'>Title:</span>
+                    <span >{paste.title}</span>
                   </div>
-                  <div>
-                    Content: {paste.content}
+                  <div className='text-xl' >
+                    <span className='font-bold'>Content:</span>
+                    <span >{paste.content}</span>
                   </div>
 
-                  <div className='flex flex-column gap-3 place-content-evenly p-10 '>
+                  <div className='flex flex-column place-content-evenly p-10  text-sm '>
                     <button >
                       <a href={`/?pasteId=${paste?._id}`}>
                         Edit
@@ -65,42 +79,10 @@ const Pastes = () => {
                     }}>
                       Copy
                     </button>
-                    <div className='flex gap-1' >
-                        <div>
-                          <button onClick={() => setOpen(true)}>Share</button>
-                          <Modal open={open} onClose={() => setOpen(false)}>
-                            <Box sx={{ bgcolor: 'white', p: 4, borderRadius: 2, mx: 'auto', mt: '20%', width: 300 }}>
-                              <h3>Share this content</h3>
-                              <div style={{ display: 'flex', gap: '10px' }}>
-                                <FacebookShareButton url={url} quote={title}>
-                                  <FacebookIcon size={32} round />
-                                </FacebookShareButton>
-                                <TwitterShareButton url={url} title={title}>
-                                  <TwitterIcon size={32} round />
-                                </TwitterShareButton>
-                              </div>
-                            </Box>
-                          </Modal>
-                        </div>
-
-                        {/* <button  >
-                          Share
-                        </button> */}
-                         <button>
-                            <FacebookIcon size={32} round  />
-                         </button>
-                         
-                          <button>
-                            <TwitterIcon size={32} round />
-                          </button>
-                          
-                          <button>
-                            <WhatsappIcon size={32} round />
-                          </button>
-                    </div>
-                  </div>
-                  <div>
-                    {paste.createdAt}
+                    <button onClick={handleShare}>
+                      Share
+                    </button>
+                    {paste.createdDt}
                   </div>
                 </div>
               )
@@ -110,9 +92,6 @@ const Pastes = () => {
 
       </div>
     </div>
-
-  )
+)
 }
-}
-
 export default Pastes
