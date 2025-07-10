@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { addToPastes,updateToPastes } from '../redux/pasteSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,6 +11,7 @@ const Home = () => {
   const pasteId = searchParams.get("pasteId");
   const dispatch=useDispatch();
   const allPastes=useSelector((state)=>state.paste.pastes);
+  const nav = useNavigate();
 
   useEffect(() => {
     if(pasteId){
@@ -38,11 +39,12 @@ const Home = () => {
     setTitle('');
     setValue('');
     setSearchParams ({});
+    nav("/Pastes");
   }
 
   return (
     <div >
-      <div className='flex flex-row gap-9 place-content-center mt-4'>
+      <div className='flex flex-row flex-wrap-reverse gap-9 place-content-center mt-4'>
         <input
           className='border rounded-2xl mt-2 pl-4 w-[500px] '
           type="text"
@@ -60,7 +62,7 @@ const Home = () => {
 
       </div>
 
-      <div className='mt-8'>
+      <div className='mt-8 flex flex-wrap place-content-center'>
         <textarea
           className='border rounded-2xl mt-2 p-4 w-[700px]'
           value={value}

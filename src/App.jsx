@@ -15,8 +15,7 @@ const router =createBrowserRouter(
       <div>
         <Navbar />
         <Home />
-        <Footer/>
-      </div>
+        </div>
     },
     {
       path: "/pastes",
@@ -24,7 +23,7 @@ const router =createBrowserRouter(
       <div>
         <Navbar />
         <Pastes />
-        <Footer />
+        
       </div>
     },
     {
@@ -33,7 +32,6 @@ const router =createBrowserRouter(
       <div>
         <Navbar />
         <ViewPastes />
-        <Footer />
       </div>
     },
   ]
@@ -44,8 +42,11 @@ function App(){
 
   return(
     <div>
-    <RouterProvider router={router} />
+    
+     <RouterProvider router={router} />
+    <Footer />
     </div>
+    
   )
 }
 

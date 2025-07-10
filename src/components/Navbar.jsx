@@ -1,19 +1,19 @@
 import React from 'react'
-import {NavLink}  from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
-  return ( 
-    <div className='flex flex-row place-content-evenly text-4xl'>
-      <NavLink
-      to="/">
+  return (
+    <div className='flex flex-row flex-wrap place-content-evenly text-4xl'>
+      <Link
+        to="/">
         Home
-      
-      </NavLink>
-      <NavLink
-      to="/Pastes"
+
+      </Link>
+      <Link
+        to="/Pastes"
       >
         Pastes
-      </NavLink>
+      </Link>
     </div>
   )
 }
